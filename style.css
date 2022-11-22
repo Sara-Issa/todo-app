@@ -83,6 +83,12 @@ input {
   font-size: 24px;
   margin: 0px 15px;
 }
+del {
+  font-family: "Reenie Beanie", cursive;
+  font-weight: 500;
+  font-size: 24px;
+  margin: 0px 15px;
+}
 
 .delete-btn {
   display: flex;
