@@ -21,44 +21,33 @@
           <h1>Awesome Todo List</h1>
           <!-- todo input -->
           <div>
-            <input type="text" placeholder="What do you need to do today?" />
-            <button class="add-btn" type="button">Add</button>
+            <input
+              type="text"
+              class="todo-input"
+              placeholder="What do you need to do today?"
+            />
+            <button class="add-btn" type="button" onclick="addTodosList();">
+              Add
+            </button>
           </div>
 
           <!-- todo list -->
           <div class="todo-list">
-            <button class="check-icon">
-              <i class="fa-regular fa-square"></i>
-            </button>
-            <button class="checked-icon">
-              <i class="fa-regular fa-square-check"></i>
-            </button>
-            <p class="todo-text">text goes here</p>
-            <button type="button" class="delete-btn">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </div>
-
-          <div class="todo-list">
-            <div class="check-icon"><i class="fa-regular fa-square"></i></div>
-            <div class="checked-icon">
-              <i class="fa-regular fa-square-check"></i>
-            </div>
-            <p class="todo-text">text goes here</p>
-            <button type="button" class="delete-btn">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </div>
-
-          <div class="todo-list">
-            <div class="check-icon"><i class="fa-regular fa-square"></i></div>
-            <div class="checked-icon">
-              <i class="fa-regular fa-square-check"></i>
-            </div>
-            <p class="todo-text">text goes here</p>
-            <button type="button" class="delete-btn">
-              <i class="fa-solid fa-trash"></i>
-            </button>
+            <ul>
+              <li>
+                <input
+                  type="checkbox"
+                  class="check-input"
+                  onclick="changeStatus(this);"
+                  name="vehicle1"
+                  value="Bike"
+                />
+                <label for=""></label>
+                <button type="button" class="delete-btn">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
