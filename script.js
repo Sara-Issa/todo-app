@@ -34,10 +34,12 @@ function addTodosList() {
 
     var json = JSON.stringify(todos);
     console.log(typeof json);
+    var prev = JSON.parse(localStorage.getItem("todo"));
     var data = [];
-    data = JSON.parse(localStorage.getItem("todo"));
-    data.push(json);
+    data.push(prev);
     console.log(data);
+
+    data.push(json);
     localStorage.setItem("key", JSON.stringify(data));
   }
 }
