@@ -83,6 +83,6 @@ function changeStatus(check) {
 }
 
 // delete todos list
-function deleteTodos(e) {
-  console.log(e);
+function deleteTodos() {
+  console.log("check");
 }
