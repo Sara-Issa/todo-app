@@ -1,6 +1,6 @@
-var check = document.querySelector(".check-icon");
-var checked = document.querySelector(".checked-icon");
-var todoText = document.querySelector(".todo-text");
+// var check = document.querySelector(".check-icon");
+// var checked = document.querySelector(".checked-icon");
+// var todoText = document.querySelector(".todo-text");
 
 //! the ckeck icon code     personal-note(use this when you are using icon)
 
@@ -22,11 +22,9 @@ var todoText = document.querySelector(".todo-text");
 // this the javascript code for the system
 
 // add todos list
-var data = [];
-  data.push(JSON.parse(localStorage.getItem("todos")));
-  localStorage.setItem("todos", JSON.stringify(data));
+var data = JSON.parse(localStorage.getItem("todos"));
+localStorage.setItem("todos", JSON.stringify(data));
 
-  
 function addTodosList() {
   var input = document.querySelector(".todo-input");
   if (input.value == "") {
@@ -37,35 +35,42 @@ function addTodosList() {
       status: "undone",
     };
   }
-    var json = JSON.stringify(todos);
-    console.log(typeof json);
-  //   var prev = JSON.parse(localStorage.getItem("todo"));
-  //   console.log(prev);
-    
-  //   var data = [];
-  //   data.push(prev);
-  //   console.log(data);
-
-  //   data.push(json);
-  //   localStorage.setItem("key", JSON.stringify(data));
-  // }
-
-  var data = [];
+  var json = JSON.stringify(todos);
+  console.log(typeof json);
   data = JSON.parse(localStorage.getItem("todos")) || [];
   data.push(json);
-  console.log(data);
+  // console.log(data);
   localStorage.setItem("todos", JSON.stringify(data));
-
-
-
+  location.reload();
 }
+window.addEventListener("load", function () {
+  showTodoList();
+});
+// show todo list
+function showTodoList() {
+  var value = JSON.parse(localStorage.getItem("todos"));
 
-// show todos list
-var show = JSON.parse(localStorage.getItem("todos"))
-console.log(show);
-for (let i = 0; i < show.length; i++) {
-  console.log(show[i].todo);
-  document.querySelector("label").innerHTML = show[i].todo
+  for (var i = 0; i < value.length; i++) {
+    console.log(value[i]);
+
+    var obj = JSON.parse(value[i]);
+    console.log(obj);
+    var ul = document.querySelector(".ul");
+    ul.innerHTML += `
+    <li class="li">
+                  <input
+                    type="checkbox"
+                    class="check-input"
+                    onclick="changeStatus(this);"
+                    name="vehicle1"
+                    value="Bike"
+                  /><label class="todo-label" for="">${obj.todo}</label>
+                  <button type="button" class="delete-btn" onclick="deleteTodos();" >
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </li>
+    `;
+  }
 }
 
 // updating todos list
@@ -78,18 +83,6 @@ function changeStatus(check) {
 }
 
 // delete todos list
-var del = JSON.parse(localStorage.getItem("todos"))
-var delBtn = document.querySelectorAll('delete-btn')
-
-function delFunction() {
-  
+function deleteTodos(e) {
+  console.log(e);
 }
-
-for (let i=0; i<todos.length; i++){
-  
-  if(del[i].todo == "Hi"){   
-    greetings.splice(i,1);
-    i--;
-  }
-}
-document.write(greetings);
