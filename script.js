@@ -1,24 +1,3 @@
-// var check = document.querySelector(".check-icon");
-// var checked = document.querySelector(".checked-icon");
-// var todoText = document.querySelector(".todo-text");
-
-//! the ckeck icon code     personal-note(use this when you are using icon)
-
-// check.addEventListener("click", function (e) {
-//   e.preventDefault();
-//   document.querySelector(".check-icon").style.display = "none";
-//   document.querySelector(".checked-icon").style.display = "block";
-//   check.parentElement.classList.add("line-through");
-// });
-
-//! the ckecked icon code     personal-note(use this when you are using icon)
-// checked.addEventListener("click", function (e) {
-//   e.preventDefault();
-//   document.querySelector(".check-icon").style.display = "block";
-//   document.querySelector(".checked-icon").style.display = "none";
-//   check.parentElement.classList.remove("line-through");
-// });
-
 // this the javascript code for the system
 
 // add todos list
@@ -35,37 +14,38 @@ function addTodosList() {
       status: "undone",
     };
   }
-  var json = JSON.stringify(todos);
-  console.log(typeof json);
+  // var json = JSON.stringify(todos);
+  // console.log(typeof json);
   data = JSON.parse(localStorage.getItem("todos")) || [];
-  data.push(json);
+  data.push(todos);
   // console.log(data);
   localStorage.setItem("todos", JSON.stringify(data));
-  location.reload();
+  showTodoList();
 }
 window.addEventListener("load", function () {
   showTodoList();
 });
 // show todo list
 function showTodoList() {
+  var ul = document.querySelector(".ul");
+  ul.innerHTML = "";
   var value = JSON.parse(localStorage.getItem("todos"));
 
   for (var i = 0; i < value.length; i++) {
-    console.log(value[i]);
+    var obj = value[i];
 
-    var obj = JSON.parse(value[i]);
-    console.log(obj);
-    var ul = document.querySelector(".ul");
+    var checked = value[i].status == "undone" ? "" : "checked";
+    var doneClass = value[i].status == "undone" ? "" : "line-through";
     ul.innerHTML += `
     <li class="li">
                   <input
                     type="checkbox"
                     class="check-input"
-                    onclick="changeStatus(this);"
+                    onclick="changeStatus(${i});"
                     name="vehicle1"
-                    value="Bike"
-                  /><label class="todo-label" for="">${obj.todo}</label>
-                  <button type="button" class="delete-btn" onclick="deleteTodos();" >
+                    ${checked}
+                  /><label class="${doneClass} todo-label" for="">${obj.todo}</label>
+                  <button type="button" class="delete-btn" onclick="deleteTodos(${i});" >
                     <i class="fa-solid fa-trash"></i>
                   </button>
                 </li>
@@ -74,15 +54,25 @@ function showTodoList() {
 }
 
 // updating todos list
-function changeStatus(check) {
-  if (check.checked) {
-    check.parentElement.classList.add("line-through");
-  } else {
-    check.parentElement.classList.remove("line-through");
+function changeStatus(index) {
+  var todosArr = JSON.parse(localStorage.getItem("todos"));
+  var done = todosArr[index].status;
+  if (done == "undone") {
+    todosArr[index].status = "done";
+    localStorage.setItem("todos", JSON.stringify(todosArr));
+    showTodoList();
+  } else if (done == "done") {
+    todosArr[index].status = "undone";
+    localStorage.setItem("todos", JSON.stringify(todosArr));
+    showTodoList();
   }
 }
 
 // delete todos list
-function deleteTodos() {
-  console.log("check");
+function deleteTodos(index) {
+  var todosArr = JSON.parse(localStorage.getItem("todos"));
+  todosArr.splice(index, 1);
+  localStorage.setItem("todos", JSON.stringify(todosArr));
+  showTodoList();
+  // location.reload();
 }
